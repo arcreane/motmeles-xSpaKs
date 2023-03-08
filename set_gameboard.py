@@ -4,10 +4,10 @@ import random
 def randomize_coordinates(gameboard, direction, word):
     if direction == "horizontal":
         x = random.randint(0, len(gameboard) - 1)
-        y = random.randint(0, len(gameboard) - 1 - len(word))
+        y = random.randint(0, len(gameboard[0]) - 1 - len(word))
     elif direction == "vertical":
         x = random.randint(0, len(gameboard) - 1 - len(word))
-        y = random.randint(0, len(gameboard) - 1)
+        y = random.randint(0, len(gameboard[0]) - 1)
 
     return x, y
 
@@ -68,7 +68,7 @@ def set_random_gameboard(words, gameboard):
 
         while word in remaining_words:
 
-            # Check if every letter of the word can be placed correctly 
+            # Check if every letter of the word can be placed correctly
 
             # If every letter can be placed correctly, do it
             for letter in word:
