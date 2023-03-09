@@ -4,7 +4,8 @@ from set_gameboard import *
 
 def play():
     difficulty = choose_difficulty()
-    gameboard = set_random_gameboard(get_words(difficulty), set_gameboard_size(difficulty))
+    remaining_words = get_words(difficulty)
+    gameboard = set_random_gameboard(remaining_words, set_gameboard_size(difficulty))
 
 
 play()

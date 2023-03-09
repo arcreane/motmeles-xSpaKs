@@ -20,7 +20,7 @@ def get_words(difficulty):
 
     # Get 10 unique words whose length depend on the difficulty
     words = []
-    while len(words) < 10:
+    while len(words) < 5:
 
         word = random.choice(words_list)
 
@@ -42,16 +42,18 @@ def get_words(difficulty):
 # Return a matrix whose size depends on the difficulty
 def set_gameboard_size(difficulty):
     if difficulty == "1":
-        gameboard = [["_" for j in range(10)] for i in range(5)]
+        a, b = 10, 5
     elif difficulty == "2":
-        gameboard = [["_" for j in range(15)] for i in range(7)]
+        a, b = 15, 7
     elif difficulty == "3":
-        gameboard = [["_" for j in range(30)] for i in range(15)]
+        a, b = 30, 15
+
+    gameboard = [["_" for j in range(a)] for i in range(b)]
 
     return gameboard
 
 
-# Add words the the gameboard
+# Add words to the gameboard
 def set_random_gameboard(words, gameboard):
     remaining_words = words
     while len(remaining_words) != 0:
@@ -66,22 +68,35 @@ def set_random_gameboard(words, gameboard):
 
         offset_x, offset_y = {"horizontal": (0, 1), "vertical": (1, 0)}[direction]
 
-        while word in remaining_words:
+        temp_gameboard = gameboard
+        remove = False
+        i = 0
 
-            # Check if every letter of the word can be placed correctly
+        # If every letter can be placed correctly, place it
+        while not remove:
+            for i in range(len(word)):
+                if gameboard[x][y] == "_":
+                    temp_gameboard[x][y] = word[i]
+                    if i == len(word) - 1:
+                        remove = True
+                    else:
+                        i += 1
+                        x, y = x + offset_x, y + offset_y
+                else:
+                    i = 0
+                    x, y = randomize_coordinates(gameboard, direction, word)[0], \
+                           randomize_coordinates(gameboard, direction, word)[
+                               1]
 
-            # If every letter can be placed correctly, do it
-            for letter in word:
-                gameboard[x][y] = letter
-                x, y = x + offset_x, y + offset_y
-            remaining_words.remove(word)
+        remaining_words.remove(word)
+        gameboard = temp_gameboard
 
-        # Fill the grid with random letters
-        for i in range(len(gameboard[0])):
-            for j in range(len(gameboard)):
-                if gameboard[j][i] == "_":
-                    # gameboard[j][i] = chr(random.randint(97, 122))
-                    pass
+    # Fill the grid with random letters
+    for i in range(len(gameboard[0])):
+        for j in range(len(gameboard)):
+            if gameboard[j][i] == "_":
+                # gameboard[j][i] = chr(random.randint(97, 122))
+                pass
 
     for line in gameboard:
         print(" ".join(line))
