@@ -72,22 +72,28 @@ def set_random_gameboard(words, gameboard):
         remove = False
         i = 0
 
-        # If every letter can be placed correctly, place it
+        # If every letter of the current word can be placed correctly, place it
         while not remove:
             for i in range(len(word)):
+
                 if gameboard[x][y] == "_":
                     temp_gameboard[x][y] = word[i]
+
+                    # If the last letter of the word can be placed, trigger the removal of the word
                     if i == len(word) - 1:
                         remove = True
                     else:
                         i += 1
                         x, y = x + offset_x, y + offset_y
+
+                # If a letter of the word cannot be placed, try again with other coordinates
                 else:
                     i = 0
                     x, y = randomize_coordinates(gameboard, direction, word)[0], \
                            randomize_coordinates(gameboard, direction, word)[
                                1]
 
+        # Once the word is certain to be correctly placed, remove it from words to place and update the gameboard
         remaining_words.remove(word)
         gameboard = temp_gameboard
 
@@ -95,8 +101,7 @@ def set_random_gameboard(words, gameboard):
     for i in range(len(gameboard[0])):
         for j in range(len(gameboard)):
             if gameboard[j][i] == "_":
-                # gameboard[j][i] = chr(random.randint(97, 122))
-                pass
+                gameboard[j][i] = chr(random.randint(97, 122))
 
-    for line in gameboard:
-        print(" ".join(line))
+    return gameboard
+
