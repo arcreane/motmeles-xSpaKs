@@ -24,7 +24,14 @@ def print_remainingWords(remaining_words):
 def print_foundWords(found_words):
     print("List of found words : ", end="")
     for remaining_word in found_words:
-        print(remaining_word, end="")
+        print("\033[1;32m" + remaining_word + "\033[1;97m", end="")
         if remaining_word != found_words[-1]:
             print(', ', end="")
     print("\n")
+
+
+def print_game(gameboard, remaining_words, found_words):
+    print_gameboard(gameboard)
+    print_remainingWords(remaining_words)
+    if len(found_words) != 0:
+        print_foundWords(found_words)
