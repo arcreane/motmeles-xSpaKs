@@ -2,10 +2,10 @@ from choose_difficulty import *
 from set_gameboard import *
 from print import *
 from get_user_input import *
+from check_word import *
 
 
 def menu(difficulty):
-    difficulty = "2"
     option = int(input("\033[1;97m\nWhat do you want to do ?\n1 : Play a game\n2 : Options\n3 : \n"))
 
     while option != 1 and option != 2:
@@ -58,35 +58,23 @@ def play(difficulty):
         word_attempt, line, column, direction = user_input[0], user_input[1], user_input[2], user_input[3]
 
         x, y = int(line) - 1, ord(column) - 97
-        x_temp, y_temp = x, y
 
-        for i in range(len(word_attempt)):
-            if word_attempt[i] == gameboard[x_temp][y_temp]:
-                if i == len(word_attempt) - 1:
-                    remaining_words.remove(word_attempt)
-                    found_words.append(word_attempt)
-                    print("\033[1;32m\nWell done ! You found a word\n\033[1;97m")
-                    x_temp, y_temp = x, y
+        if check_word(gameboard, x, y, word_attempt, direction):
+            remaining_words.remove(word_attempt)
+            found_words.append(word_attempt)
+            print("\033[1;32m\nWell done ! You found a word\n\033[1;97m")
 
-                    # If a word is found, change the color in the grid
-                    for j in range(len(word_attempt)):
-                        gameboard[x_temp][y_temp] = "\033[1;32m" + gameboard[x_temp][y_temp] + "\033[1;97m"
-                        if direction == 0:
-                            y_temp += 1
-                        elif direction == 1:
-                            x_temp += 1
+            # If a word is found, change the color in the grid
+            spot_word(gameboard, word_attempt, x, y, direction)
+        else:
+            print("\033[1;91m\nUnfortunate ! You did not find a word\n\033[1;97m")
 
-                else:
-                    if direction == 0:
-                        y_temp += 1
-                    elif direction == 1:
-                        x_temp += 1
-            else:
-                print("\n\033[1;91mUnfortunate ! You did not find a word\033[1;97m\n")
-                break
+    game_over()
 
-    name = input("\033[1;32mCongratulations, you managed to find every word ! How can we call you ?\n\033[1;97m")
+
+def game_over():
+    name = input("\033[1;32mCongratulations, you managed to find every word ! How can we call you ?\033[1;97m\n")
     print("\033[1;32mYou will be remembered as a legend,", name, "!\033[1;97m")
 
 
-menu(0)
+menu("2")

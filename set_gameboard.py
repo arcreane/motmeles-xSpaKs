@@ -61,14 +61,12 @@ def set_random_gameboard(words, gameboard):
 
         # Randomize the direction of the word
         direction = random.choice(["horizontal", "vertical"])
+        offset_x, offset_y = {"horizontal": (0, 1), "vertical": (1, 0)}[direction]
 
         # Randomize coordinates of the word
         x, y = randomize_coordinates(gameboard, direction, word)[0], randomize_coordinates(gameboard, direction, word)[
             1]
 
-        offset_x, offset_y = {"horizontal": (0, 1), "vertical": (1, 0)}[direction]
-
-        temp_gameboard = gameboard
         remove = False
         i = 0
 
@@ -77,9 +75,7 @@ def set_random_gameboard(words, gameboard):
             for i in range(len(word)):
 
                 if gameboard[x][y] == "_":
-                    temp_gameboard[x][y] = word[i]
-
-
+                    gameboard[x][y] = word[i]
 
                     # If the last letter of the word can be placed, trigger the removal of the word
                     if i == len(word) - 1:
@@ -91,22 +87,27 @@ def set_random_gameboard(words, gameboard):
 
                 # If a letter of the word cannot be placed, try again with other coordinates
                 else:
-                    i = 0
+                    for j in range(i):
+
+                        x, y = x - offset_x, y - offset_y
+                        gameboard[x][y] = "_"
+
+                    direction = random.choice(["horizontal", "vertical"])
+                    offset_x, offset_y = {"horizontal": (0, 1), "vertical": (1, 0)}[direction]
+
                     x, y = randomize_coordinates(gameboard, direction, word)[0], \
                            randomize_coordinates(gameboard, direction, word)[
                                1]
-                    remove = False
                     break
 
         # Once the word is certain to be correctly placed, remove it from words to place and update the gameboard
         remaining_words.remove(word)
-        gameboard = temp_gameboard
 
     # Fill the grid with random letters
     for i in range(len(gameboard[0])):
         for j in range(len(gameboard)):
             if gameboard[j][i] == "_":
-                #gameboard[j][i] = chr(random.randint(97, 122))
                 pass
+                #gameboard[j][i] = chr(random.randint(97, 122))
     return gameboard
 
