@@ -5,37 +5,35 @@ from get_user_input import *
 from check_word import *
 
 
-def menu(difficulty):
-    option = int(input("\033[1;97m\nWhat do you want to do ?\n1 : Play a game\n2 : Options\n3 : \n"))
+def menu(difficulty="0"):
+    option = input("\033[1;97m\nWhat do you want to do ?\n1 : Play a game\n2 : Options\n")
 
-    while option != 1 and option != 2:
-        print("\nPlease select a valid option")
-        option = int(input("\nWhat do you want to do ?\n1 : Play a game\n2 : Options\n3 : \n"))
+    while option != "1" and option != "2":
+        print("\033[1;91m\nPlease select a valid option\033[1;97m")
+        option = input("\nWhat do you want to do ?\n1 : Play a game\n2 : Options\n")
 
-    if option == 1:
+    if option == "1":
         if difficulty != "1" and difficulty != "2" and difficulty != "3":
             print("\033[1;91m\nPlease select a difficulty in the options\033[1;97m")
             menu(difficulty)
         else:
             play(difficulty)
-    elif option == 2:
+    elif option == "2":
         options(difficulty)
-    else:
-        pass
 
 
 def options(difficulty):
-    option = int(input("\nWhat option do you want to select ?\n1 : Choose difficulty\n2 : Exit options\n3 : \n"))
+    option = input("\nWhat option do you want to select ?\n1 : Choose difficulty\n2 : Exit options\n")
 
-    while option != 1 and option != 2:
+    while option != "1" and option != "2":
         print("\033[1;91m\nPlease select a valid option\033[1;97m")
-        option = int(input("\nWhat option do you want to select ?\n1 : Choose difficulty\n2 : Exit options\n3 : \n"))
+        option = input("\nWhat option do you want to select ?\n1 : Choose difficulty\n2 : Exit options\n")
 
-    if option == 1:
+    if option == "1":
         difficulty = choose_difficulty()
         options(difficulty)
 
-    elif option == 2:
+    elif option == "2":
         menu(difficulty)
 
 
@@ -77,4 +75,4 @@ def game_over():
     print("\033[1;32mYou will be remembered as a legend,", name, "!\033[1;97m")
 
 
-menu("2")
+menu()
