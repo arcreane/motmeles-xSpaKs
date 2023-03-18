@@ -4,6 +4,7 @@ from get_user_input import *
 from check_word import *
 
 
+# Global menu
 def menu(difficulty="0"):
     option = input("\033[1;97m\nWhat do you want to do ?\n1 : Play a game\n2 : Options\n")
 
@@ -21,6 +22,7 @@ def menu(difficulty="0"):
         options(difficulty)
 
 
+# Options menu
 def options(difficulty):
     option = input("\nWhat option do you want to select ?\n1 : Choose difficulty\n2 : Exit options\n")
 
@@ -36,6 +38,7 @@ def options(difficulty):
         menu(difficulty)
 
 
+# Start the game
 def play(difficulty):
     print("\n\033[1;32mYou have started a game in difficulty mode", difficulty, "\033[1;97m\n")
     words = get_words(difficulty)
@@ -69,6 +72,7 @@ def play(difficulty):
     game_over()
 
 
+# End the game
 def game_over():
     name = input("\033[1;32mCongratulations, you managed to find every word ! How can we call you ?\033[1;97m\n")
     print("\033[1;32mYou will be remembered as a legend,", name, "!\033[1;97m")

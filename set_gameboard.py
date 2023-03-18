@@ -61,7 +61,7 @@ def set_gameboard_size(difficulty):
     return gameboard
 
 
-# Add words to the gameboard
+# Generate a random grid filled with words
 def set_random_gameboard(words, gameboard):
     remaining_words = words
     while len(remaining_words) != 0:

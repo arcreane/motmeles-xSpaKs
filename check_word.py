@@ -1,3 +1,4 @@
+# Detect if a word has been found
 def check_word(gameboard, x, y, word_attempt, direction):
     x_temp, y_temp = x, y
 
@@ -15,6 +16,7 @@ def check_word(gameboard, x, y, word_attempt, direction):
             return False
 
 
+# Set a word in the grid to a different color
 def spot_word(gameboard, word, x, y, direction):
     for j in range(len(word)):
         gameboard[x][y] = "\033[1;32m" + gameboard[x][y] + "\033[1;97m"

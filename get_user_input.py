@@ -1,3 +1,4 @@
+# Ask the word to be found informations to the player
 def get_user_input(remaining_words, x_ids, y_ids):
     word_attempt = input("Select what word you found : ")
     while word_attempt not in remaining_words:
@@ -18,7 +19,7 @@ def get_user_input(remaining_words, x_ids, y_ids):
     return word_attempt, line, column, direction
 
 
-
+# Ask the player what difficulty he wants to play in
 def choose_difficulty():
     # Ask the player in what gamemode he wants to play
     difficulty = input("\nWhat difficulty do you want to choose ?\nType 1 for Easy (grid of 10*5, the words are 4 "
