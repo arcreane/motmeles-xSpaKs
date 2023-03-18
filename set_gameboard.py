@@ -14,18 +14,20 @@ def randomize_coordinates(gameboard, direction, word):
 
 # Return 10 words from a list, depending on the difficulty
 def get_words(difficulty):
+
     # Open the file and collect every word from the list
     with open("french_list.txt", "r") as f:
         words_list = [word.strip() for word in f.readlines()]
 
-    # Get 10 unique words whose length depend on the difficulty
     words = []
+
+    # Choose the number of words, depending on difficulty
     if difficulty == "1":
         count = 5
     elif difficulty == "2" or difficulty == "3":
         count = 10
 
-
+    # Pick random words and add them to our list
     while len(words) < count:
 
         word = random.choice(words_list)
@@ -91,10 +93,10 @@ def set_random_gameboard(words, gameboard):
                         x, y = x + offset_x, y + offset_y
 
 
-                # If a letter of the word cannot be placed, try again with other coordinates
+                # If a letter of the word cannot be placed, try again to put the word with other coordinates
                 else:
 
-                    # First erase the letters that have been previously placed
+                    # First erase the letters that may have been previously placed
                     for j in range(i):
                         x, y = x - offset_x, y - offset_y
                         gameboard[x][y] = "_"

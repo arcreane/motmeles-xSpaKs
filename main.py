@@ -1,4 +1,3 @@
-from choose_difficulty import *
 from set_gameboard import *
 from print import *
 from get_user_input import *
