@@ -20,7 +20,13 @@ def get_words(difficulty):
 
     # Get 10 unique words whose length depend on the difficulty
     words = []
-    while len(words) < 10:
+    if difficulty == "1":
+        count = 5
+    elif difficulty == "2" or difficulty == "3":
+        count = 10
+
+
+    while len(words) < count:
 
         word = random.choice(words_list)
 
